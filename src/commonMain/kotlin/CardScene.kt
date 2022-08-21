@@ -65,7 +65,7 @@ class CardScene : Scene() {
     }
     private fun SContainer.stopGame() {
         if (isRunning) {
-            println("Game stoped")
+            println("Game stopped")
             clickBlocker.addTo(this)
         }
     }

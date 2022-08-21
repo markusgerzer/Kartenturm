@@ -4,7 +4,6 @@ import com.soywiz.korgw.*
 import com.soywiz.korim.color.*
 import com.soywiz.korinject.*
 import com.soywiz.korma.geom.*
-import com.soywiz.korui.layout.*
 import kotlin.reflect.*
 
 suspend fun main() = Korge(Korge.Config(module = ConfigModule))
