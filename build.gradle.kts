@@ -2,6 +2,11 @@ import com.soywiz.korge.gradle.*
 
 plugins {
 	alias(libs.plugins.korge)
+    id("com.soywiz.korlibs.kotlin-source-dependency-gradle-plugin") version "0.1.1"
+}
+
+sourceDependencies {
+    source("https://github.com/markusgerzer/lib.git")
 }
 
 korge {

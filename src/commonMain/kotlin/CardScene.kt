@@ -1,3 +1,4 @@
+
 import com.soywiz.klock.*
 import com.soywiz.korge.box2d.*
 import com.soywiz.korge.input.*
@@ -10,6 +11,7 @@ import com.soywiz.korio.async.*
 import com.soywiz.korma.geom.*
 import com.soywiz.korma.interpolation.*
 import org.jbox2d.dynamics.*
+import zoom.*
 
 class CardScene : Scene() {
     private lateinit var scheme: List<SolidRect>
@@ -17,6 +19,8 @@ class CardScene : Scene() {
     private lateinit var clickBlocker: SolidRect
     private lateinit var ground: SolidRect
     private lateinit var scoreView: Text
+    private lateinit var zoomComponent: ZoomComponent
+
     val isRunning get() = clickBlocker.parent == null
     var score = 0
         private set(value) {
@@ -59,13 +63,16 @@ class CardScene : Scene() {
         runGame()
     }
 
-    private fun runGame() {
+    private fun SContainer.runGame() {
         println("Game is running")
         clickBlocker.removeFromParent()
+        zoomComponent = addZoomComponent(ZoomComponent(this))
     }
     private fun SContainer.stopGame() {
         if (isRunning) {
             println("Game stopped")
+            while (scale > 1.0) zoomComponent.zoomOut()
+            removeZoomComponent(zoomComponent)
             clickBlocker.addTo(this)
         }
     }
@@ -143,9 +150,6 @@ class CardScene : Scene() {
                 shadow?.removeFromParent()
                 removeFromParent()
                 score++
-                //this@card.stopGame()
-                //delay(1.seconds)
-                //runGame()
             }
         }
         addUpdater {
